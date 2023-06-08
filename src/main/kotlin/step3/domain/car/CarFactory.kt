@@ -1,21 +1,20 @@
 package step3.domain.car
 
-import step3.model.RaceConst
 import java.util.concurrent.atomic.AtomicInteger
 
 object CarFactory {
 
     private const val DEFAULT_POSITION = 0
 
-    fun createCar(position: Int = DEFAULT_POSITION): Car = Car(
+    fun createCar(name: String, position: Int = DEFAULT_POSITION): Car = Car(
+        name = name,
         position = AtomicInteger(position),
     )
 
-    @OptIn(ExperimentalStdlibApi::class)
     fun createCars(
-        count: Int,
+        carNames: List<String>,
         position: Int = DEFAULT_POSITION,
-    ): List<Car> = RaceConst.ZERO
-        .rangeUntil(other = count)
-        .map { createCar(position = position) }
+    ): List<Car> = carNames.map {
+        createCar(position = position, name = it)
+    }
 }

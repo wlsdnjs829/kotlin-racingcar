@@ -7,12 +7,13 @@ object ResultView {
     private const val START_RACE_GAME = "실행 결과"
     private const val CAR_POSITION_MARK = "-"
     private const val EMPTY = ""
+    private const val SEPARATOR = ":"
 
     fun printStartGame() = print(message = START_RACE_GAME)
 
-    fun printCarsPosition(carsPosition: List<Int>) {
-        carsPosition.forEach {
-            println(it.mark())
+    fun printCarPositionResults(results: List<CarPositionResult>) {
+        results.forEach {
+            println("${it.name} $SEPARATOR ${it.position.mark()}")
         }
 
         println()

@@ -29,7 +29,10 @@ class RaceGameTest : DescribeSpec({
     }
 
     describe(name = "레이스 게임 시작한 후") {
-        val cars = CarFactory.createCars(count = 3)
+        val cars = CarFactory.createCars(
+            carNames = listOf("test1", "test2", "test3")
+        )
+
         val round = AtomicInteger()
 
         context(name = "라운드가 모두 소진되었으면") {
@@ -71,7 +74,12 @@ class RaceGameTest : DescribeSpec({
 
     describe(name = "기본 룰로 게임을 시작할 때") {
         val position = AtomicInteger()
-        val cars = CarFactory.createCars(count = 1, position = position.get())
+
+        val cars = CarFactory.createCars(
+            carNames = listOf("test1"),
+            position = position.get()
+        )
+
         val round = AtomicInteger(10)
 
         context(name = "4미만일 때") {
@@ -82,7 +90,11 @@ class RaceGameTest : DescribeSpec({
             )
 
             it(name = "움직이지 않는다.") {
-                raceGame.basicFormulaRace().firstOrNull() shouldBe position.get()
+                val movedPosition = raceGame.basicFormulaRace()
+                    .firstOrNull()
+                    ?.position
+
+                movedPosition shouldBe position.get()
             }
         }
 
@@ -94,7 +106,11 @@ class RaceGameTest : DescribeSpec({
             )
 
             it(name = "한 칸 앞으로 간다.") {
-                raceGame.basicFormulaRace().firstOrNull() shouldBe position.incrementAndGet()
+                val movedPosition = raceGame.basicFormulaRace()
+                    .firstOrNull()
+                    ?.position
+
+                movedPosition shouldBe position.incrementAndGet()
             }
         }
     }

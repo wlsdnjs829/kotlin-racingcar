@@ -22,7 +22,7 @@ data class RaceGame(
     }
 
     @Throws(IllegalStateException::class)
-    fun basicFormulaRace(): List<Int> {
+    fun basicFormulaRace(): List<RaceGameResult> {
         check(value = round.get() > MINIMUM_ROUND) {
             RaceGameErrorCode.NOT_REMAINING_ROUND.message(round.toString())
         }
@@ -31,9 +31,12 @@ data class RaceGame(
         val basicRuleMoveFormula = BasicRuleMoveFormula()
 
         return cars.map {
-            it.move(
-                moveFormula = basicRuleMoveFormula,
-                value = numberGenerator.generate(),
+            RaceGameResult(
+                name = it.name,
+                position = it.move(
+                    moveFormula = basicRuleMoveFormula,
+                    value = numberGenerator.generate(),
+                ),
             )
         }
     }
