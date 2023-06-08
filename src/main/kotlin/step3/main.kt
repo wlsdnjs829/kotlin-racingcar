@@ -27,4 +27,8 @@ fun main() {
             }
         )
     }
+
+    ResultView.printFinalHeadOfRace(
+        headOfRaceCarNames = raceGame.currentHeadOfRace(),
+    )
 }

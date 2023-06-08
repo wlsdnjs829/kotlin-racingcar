@@ -43,6 +43,12 @@ data class RaceGame(
 
     fun isProgress(): Boolean = round.get() > MINIMUM_ROUND
 
+    fun currentHeadOfRace(): List<String> {
+        val headOfRaceCurrentPosition = cars.maxOf { it.currentPosition() }
+        return cars.filter { it.currentPosition() == headOfRaceCurrentPosition }
+            .map { it.name }
+    }
+
     companion object {
         private const val MINIMUM_ROUND = 0
         private const val MINIMUM_CAR_COUNT = 1

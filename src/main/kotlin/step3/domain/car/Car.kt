@@ -13,4 +13,6 @@ data class Car internal constructor(
     } else {
         position.get()
     }
+
+    fun currentPosition(): Int = position.get()
 }
