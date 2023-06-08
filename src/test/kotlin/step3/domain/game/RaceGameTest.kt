@@ -69,6 +69,30 @@ class RaceGameTest : DescribeSpec({
             it(name = "진행 여부를 호출하면 진행 중임을 반환한다.") {
                 progress shouldBe true
             }
+
+            val currentHeadOfRace = raceGame.currentHeadOfRace()
+
+            it(name = "시작 시에는 현재 선두가 모두를 반환한다.") {
+                currentHeadOfRace.size shouldBe cars.size
+            }
+        }
+
+        val headOfRaceCar = CarFactory.createCar(name = "andy", position = 3)
+        val anotherCar = CarFactory.createCar(name = "andy", position = 2)
+        val loserCar = CarFactory.createCar(name = "andy", position = 1)
+
+        context(name = "하나의 차 포지션이 앞서있다면") {
+            val raceGame = RaceGame(
+                cars = listOf(headOfRaceCar, anotherCar, loserCar),
+                round = round,
+            )
+
+            val currentHeadOfRace = raceGame.currentHeadOfRace()
+
+            it(name = "시작 시에는 현재 선두가 모두를 반환한다.") {
+                currentHeadOfRace.size shouldBe 1
+                currentHeadOfRace.firstOrNull() shouldBe headOfRaceCar.name
+            }
         }
     }
 
